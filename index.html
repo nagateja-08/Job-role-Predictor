@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%237c3aed'/%3E%3Cpath d='M55 15L30 55h20L40 85l35-45H55L65 15z' fill='white'/%3E%3C/svg%3E">
+  
+  <title>RoleAI - Career Intelligence</title>
+  <meta name="description" content="Sleek vanilla machine learning job role predictor and dataset explorer.">
+  <meta name="author" content="RoleAI">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="RoleAI - Career Intelligence">
+  <meta property="og:description" content="Discover your perfect career path using our career intelligence engine.">
+  <meta property="og:image" content="placeholder.svg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="RoleAI - Career Intelligence">
+  <meta name="twitter:description" content="Discover your perfect career path using our career intelligence engine.">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+  
+  <!-- JavaScript (Deffered) -->
+  <script defer src="app.js"></script>
+</head>
+<body>
+
+  <!-- Floating animated background elements -->
+  <div class="background-container">
+    <div class="floating-orb orb-purple"></div>
+    <div class="floating-orb orb-blue"></div>
+    <div class="floating-orb orb-pink"></div>
+    <canvas id="particles"></canvas>
+  </div>
+
+  <div class="app-wrapper">
+    <!-- Header -->
+    <header>
+      <div class="container header-content">
+        <div class="logo-group">
+          <div class="logo-icon">
+            <!-- CPU SVG Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="4" y="4" width="16" height="16" rx="2" />
+              <rect x="9" y="9" width="6" height="6" rx="1" />
+              <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3" />
+            </svg>
+          </div>
+          <div>
+            <h1 class="logo-text-title">RoleAI</h1>
+            <p class="logo-text-subtitle">Career Intelligence</p>
+          </div>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <div class="tabs-navigation">
+          <button id="tab-predict-btn" class="tab-btn active">
+            <!-- Zap SVG Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+            </svg>
+            Predict
+          </button>
+          <button id="tab-dataset-btn" class="tab-btn">
+            <!-- Database SVG Icon -->
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <ellipse cx="12" cy="5" rx="9" ry="3" />
+              <path d="M3 5V19A9 3 0 0 0 21 19V5" />
+              <path d="M3 12A9 3 0 0 0 21 12" />
+            </svg>
+            Dataset
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+      
+      <!-- HERO -->
+      <section class="hero-section">
+        <span class="hero-tag">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="16" height="16" rx="2" />
+            <rect x="9" y="9" width="6" height="6" rx="1" />
+            <path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 15h3M1 9h3M1 15h3" />
+          </svg>
+          AI-Powered Career Prediction
+        </span>
+        <h2 class="hero-title">Discover Your <span class="neon-text">Perfect Role</span></h2>
+        <p class="hero-description">Enter your skills and qualifications, and our intelligence engine will predict the ideal job role for you.</p>
+      </section>
+
+      <!-- PREDICTOR PANEL -->
+      <div id="panel-predict" class="tab-panel active">
+        <div class="grid-two-columns">
+          
+          <!-- User Profile Form -->
+          <section class="glass-card glass-card-hover">
+            <h3 class="panel-title">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                <circle cx="12" cy="7" r="4" />
+              </svg>
+              Your Profile
+            </h3>
+
+            <!-- Name Input -->
+            <div class="form-group">
+              <label for="user-name" class="form-label">Name</label>
+              <input type="text" id="user-name" class="form-input" placeholder="Enter your name">
+            </div>
+
+            <!-- Education Level Dropdown -->
+            <div class="form-group">
+              <label class="form-label">Education Level</label>
+              <div class="select-container">
+                <div id="edu-trigger" class="select-trigger placeholder">
+                  <span id="edu-trigger-label">Select education</span>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </div>
+                <div id="edu-options" class="select-options">
+                  <!-- JS dynamically populates this -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Skills Tag Input -->
+            <div class="form-group">
+              <label class="form-label">Skills</label>
+              <div id="skills-tags" class="tags-wrapper">
+                <!-- JS tags render here -->
+              </div>
+              <div style="position: relative;">
+                <input type="text" id="skills-search" class="form-input" placeholder="e.g. Python, React...">
+                <div id="skills-dropdown" class="autocomplete-dropdown">
+                  <!-- JS auto-populates options -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Certifications Tag Input -->
+            <div class="form-group">
+              <label class="form-label">Certifications</label>
+              <div id="certs-tags" class="tags-wrapper">
+                <!-- JS tags render here -->
+              </div>
+              <div style="position: relative;">
+                <input type="text" id="certs-search" class="form-input" placeholder="e.g. AWS Cloud...">
+                <div id="certs-dropdown" class="autocomplete-dropdown">
+                  <!-- JS auto-populates options -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Soft Skills Tag Input -->
+            <div class="form-group">
+              <label class="form-label">Soft Skills</label>
+              <div id="soft-tags" class="tags-wrapper">
+                <!-- JS tags render here -->
+              </div>
+              <div style="position: relative;">
+                <input type="text" id="soft-search" class="form-input" placeholder="e.g. Leadership...">
+                <div id="soft-dropdown" class="autocomplete-dropdown">
+                  <!-- JS auto-populates options -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Predict Button -->
+            <button id="predict-btn" class="glow-button" disabled>
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+              </svg>
+              Predict My Job Role
+            </button>
+          </section>
+
+          <!-- Result Panel -->
+          <section class="result-card">
+            
+            <!-- Result State 1: Empty -->
+            <div id="result-empty-state" class="result-placeholder">
+              <div class="result-placeholder-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                </svg>
+              </div>
+              <div>
+                <h3>Your Prediction Awaits</h3>
+                <p>Fill in your profile and click predict to discover your ideal career path.</p>
+              </div>
+            </div>
+
+            <!-- Result State 2: Loading -->
+            <div id="result-loading-state" class="result-loading" style="display: none;">
+              <div class="loading-spinner-container">
+                <div class="loading-spinner"></div>
+                <div class="loading-icon">
+                  <!-- Brain SVG Icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M12 5a3 3 0 1 0-5.997.125 4 4 0 0 0-2.526 5.77 4 4 0 0 0 .556 6.588A4 4 0 1 0 12 18Z" />
+                    <path d="M12 5a3 3 0 1 1 5.997.125 4 4 0 0 1 2.526 5.77 4 4 0 0 1-.556 6.588A4 4 0 1 1 12 18Z" />
+                    <path d="M15 13a4.5 4.5 0 0 1-3-4 4.5 4.5 0 0 1-3 4" />
+                    <path d="M17.599 6.5a3 3 0 0 0 .399-1.375" />
+                    <path d="M6.003 5.125A3 3 0 0 0 6.401 6.5" />
+                    <path d="M3.477 10.896a4 4 0 0 1 .585-.396" />
+                    <path d="M19.938 10.5a4 4 0 0 1 .585.396" />
+                    <path d="M6 18a4 4 0 0 1-1.967-.516" />
+                    <path d="M19.967 17.484A4 4 0 0 1 18 18" />
+                  </svg>
+                </div>
+              </div>
+              <div>
+                <h3>Analyzing your profile</h3>
+                <p>Our model is processing your skills...</p>
+              </div>
+              <div class="progress-bar-loading">
+                <div class="progress-bar-loading-fill"></div>
+              </div>
+            </div>
+
+            <!-- Result State 3: Content Loaded -->
+            <div id="result-content-state" class="result-content" style="display: none;">
+              <div class="predicted-role-card">
+                <div class="absolute inset-0 bg-gradient-to-br from-neon-purple/10 via-transparent to-neon-blue/10 pointer-events-none rounded-2xl"></div>
+                <div id="result-role-icon" class="role-icon-glow">
+                  <!-- JS sets icon -->
+                </div>
+                <h4 class="predicted-role-title">Predicted Role</h4>
+                <h2 id="result-role-name" class="predicted-role-name neon-text">AI Engineer</h2>
+                
+                <!-- Confidence Indicator -->
+                <div class="max-w-xs mx-auto">
+                  <div class="confidence-title-group">
+                    <span class="confidence-label">Confidence</span>
+                    <span id="result-confidence-val" class="confidence-value">85%</span>
+                  </div>
+                  <div class="confidence-track">
+                    <div id="result-confidence-fill" class="confidence-fill"></div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Related Roles -->
+              <div class="detail-card">
+                <h4 class="detail-card-title">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                  </svg>
+                  Related Roles
+                </h4>
+                <div id="result-related-tags" class="tags-wrapper">
+                  <!-- JS populates related roles -->
+                </div>
+              </div>
+
+              <!-- Career Tips -->
+              <div class="detail-card">
+                <h4 class="detail-card-title">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 14c.2-1 .7-1.7 1.5-2.5 1-.9 1.5-2.2 1.5-3.5A6 6 0 0 0 6 8c0 1 .6 2.2 1.5 3.5.7.7 1.3 1.5 1.5 2.5"/><path d="M9 18h6"/><path d="M10 22h4"/>
+                  </svg>
+                  Career Tips
+                </h4>
+                <ul id="result-tips-list" class="tips-list">
+                  <!-- JS populates tips list -->
+                </ul>
+              </div>
+            </div>
+
+          </section>
+        </div>
+      </div>
+
+      <!-- DATASET PANEL -->
+      <div id="panel-dataset" class="tab-panel">
+        <section class="glass-card">
+          <div class="dataset-header">
+            <h3 class="dataset-title">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <ellipse cx="12" cy="5" rx="9" ry="3" />
+                <path d="M3 5V19A9 3 0 0 0 21 19V5" />
+                <path d="M3 12A9 3 0 0 0 21 12" />
+              </svg>
+              <span>Dataset Explorer</span>
+              <span id="dataset-count-label" class="dataset-count">(loading...)</span>
+            </h3>
+
+            <!-- Real-time CSV Search -->
+            <div class="search-container">
+              <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input type="text" id="dataset-search" class="search-input" placeholder="Search dataset...">
+            </div>
+          </div>
+
+          <!-- Dataset Table -->
+          <div class="table-wrapper">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Job Role</th>
+                  <th>Education</th>
+                  <th>Experience</th>
+                  <th>Skills</th>
+                  <th>Certifications</th>
+                  <th>Soft Skills</th>
+                  <th>Salary (LPA)</th>
+                </tr>
+              </thead>
+              <tbody id="dataset-table-body">
+                <tr id="dataset-loading-row">
+                  <td colspan="7" style="text-align: center; padding: 3rem 0;">
+                    <div style="display: inline-block; width: 1.5rem; height: 1.5rem; border: 2px solid rgba(124, 58, 237, 0.2); border-top-color: var(--primary); border-radius: 50%; animation: spin 0.6s linear infinite; margin-right: 0.5rem; vertical-align: middle;"></div>
+                    Loading dataset records...
+                  </td>
+                </tr>
+                <!-- JS dynamically populates CSV rows here -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Table Pagination controls -->
+          <div class="pagination-panel">
+            <span id="page-status-label">Showing 0-0 of 0</span>
+            <div class="pagination-controls">
+              <button id="btn-prev-page" class="pagination-btn" disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="15 18 9 12 15 6" />
+                </svg>
+              </button>
+              <span id="page-number-indicator" class="pagination-status">1 / 1</span>
+              <button id="btn-next-page" class="pagination-btn" disabled>
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="9 18 15 12 9 6" />
+                </svg>
+              </button>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <p>&copy; 2026 RoleAI. Built with standard HTML &amp; CSS + JavaScript. Highly secure and lightweight.</p>
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>
